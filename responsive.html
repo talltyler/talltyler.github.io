@@ -7,6 +7,7 @@
     <meta name="apple-mobile-web-app-title" content="Paperless Post" />
     <style type="text/css" media="screen">
     html, body { margin: 0; padding: 0; }
+    #canvas{ position: absolute; }
     #tools{ position: absolute; color: #FFF; background: #111;}
     #tools-tabs { display: table; list-style-type: none; margin: 0; padding: 0; background: #333; width: 100%;}
     #tools-tabs>li { float: left; padding: 10px; background: #333; color: #888; font-style:italic;}
@@ -36,11 +37,11 @@ var width;
 var height;
 var toolsWidth;
 var toolsHeight;
+var canvasWidth;
+var canvasHeight;
 var resize = function(){
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight+30;
-  context.fillStyle = '#EEE';
-  context.fillRect(0,0,width,height);
+  width = window.innerWidth;
+  height = window.innerHeight;
   if((width > height || width > 1024) && width > 400){ // landscape
     toolsWidth = Math.max(Math.min(width*0.28,400),230);
     toolsHeight = height;
@@ -48,6 +49,9 @@ var resize = function(){
     tools.style.top = '0px';
     tools.style.width = toolsWidth+'px'; 
     tools.style.height = toolsHeight+'px';
+    canvas.style.left = toolsWidth+'px';
+    canvasWidth = width-toolsWidth;
+    canvasHeight = height;
   }else{ // portrait
     toolsWidth = width;
     toolsHeight = Math.max(Math.min(height*0.36,400),220);
@@ -55,7 +59,24 @@ var resize = function(){
     tools.style.top = (height - toolsHeight)+'px';
     tools.style.width = toolsWidth+'px'; 
     tools.style.height = toolsHeight+'px';
+    canvas.style.left = '0px';
+    canvasWidth = width;
+    canvasHeight = height - toolsHeight;
   }
+  canvas.width = canvasWidth;
+  canvas.height = canvasHeight;
+  context.fillStyle = '#EEE';
+  context.fillRect(0,0,width,height);
+  context.fillStyle = '#F40';
+  var iPhone = navigator.userAgent.indexOf('iPhone') !== -1;
+  var paddingX = iPhone ? 20 : 60;
+  var paddingY = iPhone ? 60 : 60;
+  var scale =  Math.min(1,
+    (canvasWidth - paddingX) / 600,
+    (canvasHeight - paddingY) / 636);
+  var w = 480 * scale;
+  var h = 620 * scale;
+  context.fillRect((canvasWidth*0.5)-(w*0.5),(canvasHeight*0.5)-(h*0.5),w,h);
 };
 resize();
 window.onresize = resize;
