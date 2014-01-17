@@ -3,7 +3,7 @@
   <head>
     <title></title>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=1024" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="apple-mobile-web-app-title" content="Paperless Post" />
     <style type="text/css" media="screen">
     html, body { margin: 0; padding: 0; }
@@ -28,12 +28,12 @@
     </div>
 <script type="text/javascript" charset="utf-8">
 var canvas = document.getElementById('canvas');
-var width = canvas.width = window.innerWidth;
-var height = canvas.height = window.innerHeight;
 var context = canvas.getContext('2d');
 var tools = document.getElementById('tools');
 var toolsTabs = tools.firstChild;
 var toolsContent = toolsTabs.nextSibling;
+var width;
+var height;
 var toolsWidth;
 var toolsHeight;
 var resize = function(){
@@ -59,6 +59,7 @@ var resize = function(){
 };
 resize();
 window.onresize = resize;
+window.orientationchange = resize;
 </script>
   </body>
 </html>
