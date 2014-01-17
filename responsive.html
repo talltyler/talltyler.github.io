@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=1024" />
+    <meta name="apple-mobile-web-app-title" content="Paperless Post" />
+    <style type="text/css" media="screen">
+    html, body { margin: 0; padding: 0; }
+    #tools{ position: absolute; color: #FFF; background: #111;}
+    #tools-tabs { display: table; list-style-type: none; margin: 0; padding: 0; background: #333; width: 100%;}
+    #tools-tabs>li { float: left; padding: 10px; background: #333; color: #888; font-style:italic;}
+    #tools-tabs>li:hover { background: #111; }
+    #tools-tabs>li.selected { background: #111; }
+    #tools-content { }
+    </style>
+  </head>
+  <body>
+    <canvas id="canvas"></canvas>
+    <div id="tools">
+      <ul id="tools-tabs">
+        <li>•</li>
+        <li class="selected">Typeface</li>
+        <li>Color</li>
+        <li>Format</li>
+      </ul>
+      <div id="tools-content"></div>
+    </div>
+<script type="text/javascript" charset="utf-8">
+var canvas = document.getElementById('canvas');
+var width = canvas.width = window.innerWidth;
+var height = canvas.height = window.innerHeight;
+var context = canvas.getContext('2d');
+var tools = document.getElementById('tools');
+var toolsTabs = tools.firstChild;
+var toolsContent = toolsTabs.nextSibling;
+var toolsWidth;
+var toolsHeight;
+var resize = function(){
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+  context.fillStyle = '#EEE';
+  context.fillRect(0,0,width,height);
+  if((width > height || width > 1024) && width > 400){ // landscape
+    toolsWidth = Math.max(Math.min(width*0.28,400),230);
+    toolsHeight = height;
+    tools.style.left = '0px';
+    tools.style.top = '0px';
+    tools.style.width = toolsWidth+'px'; 
+    tools.style.height = toolsHeight+'px';
+  }else{ // portrait
+    toolsWidth = width;
+    toolsHeight = Math.max(Math.min(height*0.36,400),220);
+    tools.style.left = '0px';
+    tools.style.top = (height - toolsHeight)+'px';
+    tools.style.width = toolsWidth+'px'; 
+    tools.style.height = toolsHeight+'px';
+  }
+};
+resize();
+window.onresize = resize;
+</script>
+  </body>
+</html>
