@@ -38,7 +38,7 @@ var toolsWidth;
 var toolsHeight;
 var resize = function(){
   width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
+  height = canvas.height = window.innerHeight+3;
   context.fillStyle = '#EEE';
   context.fillRect(0,0,width,height);
   if((width > height || width > 1024) && width > 400){ // landscape
