@@ -42,7 +42,7 @@ var canvasHeight;
 var resize = function(){
   width = window.innerWidth;
   height = window.innerHeight;
-  if((width > height || width > 1024) && width > 400){ // landscape
+  if((width > height || width > 1024) && width > 500){ // landscape
     toolsWidth = Math.max(Math.min(width*0.28,400),230);
     toolsHeight = height;
     tools.style.left = '0px';
@@ -69,14 +69,17 @@ var resize = function(){
   context.fillRect(0,0,width,height);
   context.fillStyle = '#F40';
   var iPhone = navigator.userAgent.indexOf('iPhone') !== -1;
-  var paddingX = iPhone ? 20 : 60;
-  var paddingY = iPhone ? 60 : 60;
+  var paddingX = 20; //iPhone ? 20 : 60;
+  var paddingY = 20; //iPhone ? 60 : 60;
   var scale =  Math.min(1,
     (canvasWidth - paddingX) / 600,
     (canvasHeight - paddingY) / 636);
   var w = 480 * scale;
   var h = 620 * scale;
   context.fillRect((canvasWidth*0.5)-(w*0.5),(canvasHeight*0.5)-(h*0.5),w,h);
+  var fontSize = Math.ceil(Math.max((10/width)*800,15));
+  tools.style.fontSize = fontSize+'px';
+  // if the menu items don't fit replace the words with icons
 };
 resize();
 window.onresize = resize;
