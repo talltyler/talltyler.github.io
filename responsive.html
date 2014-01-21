@@ -28,6 +28,7 @@
       <div id="tools-content"></div>
     </div>
 <script type="text/javascript" charset="utf-8">
+window.navigator.standalone = true;
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext('2d');
 var tools = document.getElementById('tools');
@@ -71,14 +72,16 @@ var resize = function(){
   var iPhone = navigator.userAgent.indexOf('iPhone') !== -1;
   var paddingX = 20; //iPhone ? 20 : 60;
   var paddingY = 20; //iPhone ? 60 : 60;
+  var cardWidth = 480;
+  var cardHeight = 620;
   var scale =  Math.min(1,
-    (canvasWidth - paddingX) / 600,
-    (canvasHeight - paddingY) / 636);
-  var w = 480 * scale;
-  var h = 620 * scale;
+    (canvasWidth - paddingX) / cardWidth,
+    (canvasHeight - paddingY) / cardHeight);
+  var w = cardWidth * scale;
+  var h = cardHeight * scale;
   context.fillRect((canvasWidth*0.5)-(w*0.5),(canvasHeight*0.5)-(h*0.5),w,h);
-  var fontSize = Math.ceil(Math.max((10/width)*800,15));
-  tools.style.fontSize = fontSize+'px';
+  // var fontSize = Math.ceil(Math.min(Math.max((12/width)*800,15),21));
+  // tools.style.fontSize = fontSize+'px';
   // if the menu items don't fit replace the words with icons
 };
 resize();

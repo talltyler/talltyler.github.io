@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Transform Tool Canvas</title>
+	<style type="text/css">
+		#canvas { border:1px solid black; background-color:#FFE; display:block; }
+	</style>
+</head>
+<body onLoad="App.create();">
+	
+	<canvas id="canvas" width="640" height="480">No Canvas.</canvas>
+	
+	<script type="text/javascript" src="Utils.js"></script>
+	<script type="text/javascript" src="../src/js/TransformTool.js"></script>
+  <script type="text/javascript" src="text.js"></script>
+	<script type="text/javascript" src="TransformSpike.js"></script>
+  <script type="text/javascript" charset="utf-8">
+  setTimeout(function(){
+    App.instance.tool.setControls(ControlSet.getScalerWithRotate()); 
+    App.instance.render();
+  },100);
+  </script>
+</body>
+</html>
